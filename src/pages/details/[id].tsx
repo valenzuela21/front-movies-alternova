@@ -21,9 +21,11 @@ const Details = ({movie}: any) => {
     const router = useRouter();
     const [idUser, setIdUser]: any = useState('');
     const [getVote, setVote]: any = useState({});
+    const [getScore, setScore]: any = useState<number>(0.0);
 
     useEffect(() => {
         getUser();
+        generateVoteAverage();
     }, [])
 
     const getUser = async () => {
@@ -38,8 +40,28 @@ const Details = ({movie}: any) => {
         }
     }
 
-    const generateVoteAverage = () => {
+    const generateVoteAverage = async() => {
+            let movieScore: number[] = [];
 
+            let scoreArray: any[] = [];
+            let allVote = await clientAxios.get('/api/vote/all');
+            const {results} = allVote.data;
+            const resp = results.map((item: any) => item.score.forEach(
+                (item: any) =>  scoreArray.push(item)
+            ));
+
+            const respScore = scoreArray.filter(item => item.movie.includes(movie._id));
+            respScore.forEach(score => movieScore.push(score.vote));
+            setScore(Score(movieScore));
+
+    }
+
+    function Score(myArray: number[]) {
+        var i = 0, summ = 0, ArrayLen = myArray.length;
+        while (i < ArrayLen) {
+            summ = summ + myArray[i++];
+        }
+        return summ / ArrayLen;
     }
 
     const actionVoteHandler = async (idUser: string | null, idVote: string, idMovie: string, vote: number) => {
@@ -118,7 +140,7 @@ const Details = ({movie}: any) => {
                                         )}
                                     </div>
                                     <div className="flex flex-col items-center justify-center">
-                                        <dt className="mb-2 text-3xl md:text-4xl font-extrabold">4M+</dt>
+                                        <dt className="mb-2 text-7xl md:text-6xl font-extrabold">{getScore}</dt>
                                         <dd className="font-light text-gray-500 dark:text-gray-400">Puntaje</dd>
                                     </div>
                                 </dl>
