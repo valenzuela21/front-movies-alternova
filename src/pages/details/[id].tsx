@@ -21,7 +21,7 @@ const Details = ({movie}: any) => {
     const router = useRouter();
     const [idUser, setIdUser]: any = useState('');
     const [getVote, setVote]: any = useState({});
-    const [getScore, setScore]: any = useState<number>(0.0);
+    const [getScore, setScore]: any = useState<number>(0);
 
     useEffect(() => {
         getUser();
@@ -52,7 +52,13 @@ const Details = ({movie}: any) => {
 
             const respScore = scoreArray.filter(item => item.movie.includes(movie._id));
             respScore.forEach(score => movieScore.push(score.vote));
-            setScore(Score(movieScore));
+
+            if(respScore.length >= 1){
+                setScore(Score(movieScore));
+            }else{
+                setScore(0);
+            }
+
 
     }
 
