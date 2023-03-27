@@ -16,17 +16,34 @@ export async function getServerSideProps({params}: any) {
 
 
 const Details = ({movie}: any) => {
-    const [idUser] = useState(localStorage.getItem('userID'));
-    const [getVote, setVote] = useState([]);
+
+    const [idUser, setIdUser]: any = useState('');
+    const [getVote, setVote]: any = useState({});
 
     useEffect(() => {
         getUser();
     }, [])
 
     const getUser = async () => {
-        let sessionUser = await clientAxios.get(`/api/auth/user/${idUser}`);
-        let misVote = sessionUser.data.user.vote.score;
-        setVote(misVote);
+        if(typeof(Storage) !== "undefined"){
+            let _idUser = localStorage.getItem('userID');
+            setIdUser(_idUser);
+            let sessionUser = await clientAxios.get(`/api/auth/user/${_idUser}`);
+            const {_id, score} = sessionUser.data.user.vote;
+            setVote({_id, score});
+        }
+    }
+
+    const actionVoteHandler = async (idUser: string | null, idVote: string, idMovie: string, vote: number) => {
+        let newVote = {
+            "user": idUser,
+            "score": [{
+                "movie": idMovie,
+                "vote": vote
+            }]
+        };
+
+        await clientAxios.post(`api/vote/add/${idVote}`, newVote);
     }
 
     return (<>
@@ -47,22 +64,27 @@ const Details = ({movie}: any) => {
                                 <dl className="grid max-w-screen-md gap-8 mx-auto text-gray-900 sm:grid-cols-2 dark:text-white">
                                     <div className="block items-center justify-center">
 
-                                        {!getVote.find((item: any) => item.movie == movie._id) ? (
+                                        {!getVote?.score?.find((item: any) => item.movie == movie._id) ? (
                                             <>
                                                 <h2 className="mb-2 text-2xl md:text-2xl font-extrabold">Calificar</h2>
                                                 <button type="button"
+                                                        onClick={()=>actionVoteHandler(idUser, getVote._id, movie._id, 1)}
                                                         className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">1
                                                 </button>
                                                 <button type="button"
+                                                        onClick={()=>actionVoteHandler(idUser, getVote._id, movie._id, 2)}
                                                         className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">2
                                                 </button>
                                                 <button type="button"
+                                                        onClick={()=>actionVoteHandler(idUser, getVote._id, movie._id, 3)}
                                                         className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">3
                                                 </button>
                                                 <button type="button"
+                                                        onClick={()=>actionVoteHandler(idUser, getVote._id, movie._id, 4)}
                                                         className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">4
                                                 </button>
                                                 <button type="button"
+                                                        onClick={()=>actionVoteHandler(idUser, getVote._id, movie._id, 5)}
                                                         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 ml-2 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">5
                                                 </button>
                                             </>
