@@ -38,7 +38,9 @@ const Details = ({movie}: any) => {
     const actionVoteHandler = async (idUser: string | null, idVote: string, idMovie: string, vote: number) => {
         let newVote = {
             "user": idUser,
-            "score": [{
+            "score": [
+                ...getVote?.score,
+                {
                 "movie": idMovie,
                 "vote": vote
             }]
