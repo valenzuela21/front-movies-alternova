@@ -2,10 +2,8 @@ import io from 'socket.io-client';
 import {useEffect, useState} from "react";
 
 const Banner = () => {
-
-
     const connectSocketServer = () => {
-        const socket = io('http://localhost:8080');
+        const socket = io(`${process.env.backendURL}`);
         return socket;
     }
 
