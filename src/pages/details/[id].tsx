@@ -19,6 +19,7 @@ const Details = ({movie}: any) => {
 
     const [idUser, setIdUser]: any = useState('');
     const [getVote, setVote]: any = useState({});
+    const [getIsVote, setIsVote] = useState<boolean>(false);
 
     useEffect(() => {
         getUser();
@@ -42,8 +43,9 @@ const Details = ({movie}: any) => {
                 "vote": vote
             }]
         };
-
-        await clientAxios.post(`api/vote/add/${idVote}`, newVote);
+        await clientAxios.put(`/api/vote/add/${idVote}`, newVote);
+        alert("Nueva Calificación: " + vote);
+        setIsVote(true);
     }
 
     return (<>
@@ -64,7 +66,7 @@ const Details = ({movie}: any) => {
                                 <dl className="grid max-w-screen-md gap-8 mx-auto text-gray-900 sm:grid-cols-2 dark:text-white">
                                     <div className="block items-center justify-center">
 
-                                        {!getVote?.score?.find((item: any) => item.movie == movie._id) ? (
+                                        {!getVote?.score?.find((item: any) => item.movie == movie._id) || getIsVote ? (
                                             <>
                                                 <h2 className="mb-2 text-2xl md:text-2xl font-extrabold">Calificar</h2>
                                                 <button type="button"
