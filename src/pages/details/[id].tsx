@@ -38,8 +38,11 @@ const Details = ({movie}: any) => {
         }
     }
 
-    const actionVoteHandler = async (idUser: string | null, idVote: string, idMovie: string, vote: number) => {
+    const generateVoteAverage = () => {
 
+    }
+
+    const actionVoteHandler = async (idUser: string | null, idVote: string, idMovie: string, vote: number) => {
 
         if (!idVote) {
             await clientAxios.post(`/api/vote/create`, {
@@ -66,7 +69,6 @@ const Details = ({movie}: any) => {
         });
         alert("Nueva Calificación: " + vote);
         router.push('/');
-
     }
 
     return (<>

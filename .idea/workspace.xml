@@ -7,6 +7,8 @@
     <list default="true" id="a40aad59-4e45-4a9c-8237-051196007c45" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/next.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/token_validate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/token_validate.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/details/[id].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/details/[id].tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -91,7 +93,7 @@
       <workItem from="1679887973994" duration="2290000" />
       <workItem from="1679922273984" duration="2194000" />
       <workItem from="1679928247012" duration="159000" />
-      <workItem from="1679933296869" duration="8205000" />
+      <workItem from="1679933296869" duration="10143000" />
     </task>
     <servers />
   </component>

@@ -10,7 +10,7 @@ import {Button, Dropdown} from 'flowbite-react';
 const Header = () => {
     const router = useRouter();
     const [getDropDrown, setDropDown] = useState<boolean>(false);
-    const [getUser, setUser] = useState<{email: string, name: string}>();
+    const [getUser, setUser] = useState<{email: string, namefull: string}>();
     
     useEffect(() => {
         validateToken()
@@ -57,7 +57,7 @@ const Header = () => {
                         className="text-black bg-transparent focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center "
                         type="button">
                         <div className="block text-right">
-                        <p>{getUser?.name}</p>
+                        <p>{getUser?.namefull}</p>
                         <p>{getUser?.email}</p>
                         </div>
                         <svg className="w-4 h-4 ml-2" aria-hidden="true" fill="none"
