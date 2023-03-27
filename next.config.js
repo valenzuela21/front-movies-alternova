@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   env:{
-    backendURL: 'http://localhost:8080/'
+    backendURL: 'https://back-movies-alternova-production.up.railway.app/'
   }
 }
 
